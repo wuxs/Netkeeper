@@ -3,12 +3,13 @@ import threading
 import win32event
 import win32service
 
+import time
 import win32serviceutil
 
 import init
 from netkeeper import Netkeeper
 from log import logger
-from NKUI import MainWindow,TrayIcon
+from NKUI import MainWindow, TrayIcon
 
 
 class NKService(win32serviceutil.ServiceFramework):
@@ -25,17 +26,18 @@ class NKService(win32serviceutil.ServiceFramework):
     def SvcDoRun(self):
         self.logger.info("Service start ")
         init.init()
-        if init.settings.RUNNING:
-            self.netkeeper = Netkeeper()
-            self.mainwindow = MainWindow()
-            thread1 = threading.Thread(target=self.netkeeper.autoDail,
-                                       args=('17702737125@hkd', '09152287', self.mainwindow.autoupdate))
-            thread1.setDaemon(True)
-            thread1.start()
-            thread2 = threading.Thread(target=self.mainwindow.mainloop())
-            thread2.setDaemon(True)
-            thread2.start()
-            self.tray=TrayIcon(self.netkeeper)
+        self.netkeeper = Netkeeper()
+        self.mainwindow = MainWindow()
+        thread1 = threading.Thread(target=self.netkeeper.autoDail,
+                                   args=('17702737125@hkd', '09152287', self.mainwindow.autoupdate))
+        thread1.setDaemon(True)
+        thread1.start()
+        thread2 = threading.Thread(target=self.mainwindow.mainloop())
+        thread2.setDaemon(True)
+        thread2.start()
+        self.tray = TrayIcon(self.netkeeper)
+        while init.settings.RUNNING:
+            time.sleep(1)
             # account, password = confparser.getAcc()
             # netkeeper.autoDail('17702737125@hkd', '09152287',mainwindow.update)
 
