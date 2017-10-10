@@ -192,6 +192,6 @@ class Netkeeper(object):
 #
 
 if __name__ == '__main__':
-    # autoDail('17702737125@hkd', '09152287')
+    # autoDail('xxxxxx@hkd', 'xxxxx')
     # disconnect()
     print ''
