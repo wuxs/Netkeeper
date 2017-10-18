@@ -143,6 +143,6 @@ def logout(username):
 
 
 if __name__ == '__main__':
-    connect('17702737125%40hkd', '09152287')
-    # logout('17702737125@hkd')
-    # getPasswordEnc('09152287')
+    connect('username', 'password')
+    # logout('username')
+    # getPasswordEnc('password')
