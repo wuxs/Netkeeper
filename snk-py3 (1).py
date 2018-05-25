@@ -2,7 +2,7 @@
 import urlparse
 
 import requests
-
+# pip install requests pycryptodome
 
 class Netkeeper(object):
     AES_KEY_PASSWORD = "pass012345678910"
